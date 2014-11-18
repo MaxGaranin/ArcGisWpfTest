@@ -37,12 +37,13 @@
                     <t:RadRibbonRadioButton Text="Выбрать"
                                             Size="Large"
                                             IsChecked="{Binding IsSelectMode}" />
-<!--                    <t:RadRibbonRadioButton Text="Выбрать регион"-->
-<!--                                            Size="Large"-->
-<!--                                            Command="{Binding SelectRegionCommand}" />-->
+                    <t:RadRibbonRadioButton Text="Выбрать регион"
+                                            Size="Large"
+                                            Command="{Binding SelectRegionCommand}" />
                     <t:RadRibbonRadioButton Text="Двигать элементы"
                                             Size="Large"
                                             Command="{Binding MovePointCommand}" />
+                    <t:Separator/>
                     <t:RadRibbonRadioButton Text="Скважина"
                                             Size="Large"
                                             Command="{Binding AddNewPointNetElementCommand}"

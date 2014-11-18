@@ -22,7 +22,7 @@ namespace ArcGisMapEditor.ViewModel.Managers.Operations
 
         public override void Finish()
         {
-            _mainViewModel.ClearSelection();
+            _mainViewModel.UnselectContainers();
             UnsubscribeToMapEvents();
             base.Finish();
         }
@@ -43,7 +43,7 @@ namespace ArcGisMapEditor.ViewModel.Managers.Operations
 
         private void MainViewModelMapMouseDown(object sender, MapPointEventArgs e)
         {
-            if (!_isMultiSelect) _mainViewModel.ClearSelection();
+            if (!_isMultiSelect) _mainViewModel.UnselectContainers();
             
             SelectContainer(e.MapPoint);            
         }

@@ -98,7 +98,7 @@ namespace ArcGisMapEditor.ViewModel.Managers
 
         public void SelectOneContainer(NetElementContainer container)
         {
-            UnSelectContainers();
+            UnselectContainers();
             container.IsSelected = true;
         }
 
@@ -107,7 +107,7 @@ namespace ArcGisMapEditor.ViewModel.Managers
             return NetElementContainers.Where(c => c.IsSelected).ToList();
         }
 
-        public void UnSelectContainers()
+        public void UnselectContainers()
         {
             var containers = GetSelectedContainers();
             foreach (var container in containers)

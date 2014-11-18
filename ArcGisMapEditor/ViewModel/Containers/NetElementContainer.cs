@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using ArcGisMapEditor.Model;
-using ArcGisMapEditor.Model.Helpers;
 using ArcGisMapEditor.ViewModel.Helpers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Layers;
@@ -14,8 +13,9 @@ namespace ArcGisMapEditor.ViewModel.Containers
             NetElement = netElement;
 
             Graphic = ResourceHelper.CreateNetElementGraphic(netElement.ElementType);
-            Graphic.Geometry = GeometryHelper.CreateNetElementGeometry(netElement);
             Graphic.Attributes[Constants.NetElementContainerGraphicKey] = this;
+
+            MapPoint = GeometryHelper.CreateNetElementMapPoint(netElement);
         }
 
         #region Properties

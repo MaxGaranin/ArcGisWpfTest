@@ -207,7 +207,7 @@ namespace ArcGisMapEditor.ViewModel
 
         private void SelectRegion()
         {
-            OperationsManager.BeginNewOperation(OperationType.Select);
+            OperationsManager.BeginNewOperation(OperationType.SelectRegion);
         }
 
         #endregion
@@ -382,9 +382,9 @@ namespace ArcGisMapEditor.ViewModel
             IsSelectMode = true;
         }
 
-        public void ClearSelection()
+        public void UnselectContainers()
         {
-            NetworkManager.UnSelectContainers();
+            NetworkManager.UnselectContainers();
         }
 
         public void SelectOneContainer(NetElementContainer container)
