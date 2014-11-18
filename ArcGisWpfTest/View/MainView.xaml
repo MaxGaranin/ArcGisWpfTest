@@ -1,0 +1,83 @@
+﻿<Window x:Class="ArcGisWpfTest.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+        xmlns:bing="clr-namespace:ESRI.ArcGIS.Client.Bing;assembly=ESRI.ArcGIS.Client.Bing"
+        Title="MainWindow" Height="600" Width="900"
+        DataContext="{Binding Path=Main, Source={StaticResource Locator}}">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbol" Color="Red" Size="12" Style="Circle" />
+            <esri:SimpleLineSymbol x:Key="RedLineSymbol" Color="Red" Width="4" Style="Solid" />
+            <esri:SimpleFillSymbol x:Key="RedFillSymbol" Fill="#66FF0000" BorderBrush="Red" BorderThickness="2" />
+            <esri:PictureFillSymbol x:Key="GlobePictureFillSymbol" Source="/Resources/Images/clipboard-32.png" />
+            <esri:PictureMarkerSymbol x:Key="PinPictureMarkerSymbol" OffsetX="11" OffsetY="39" Source="/Resources/Images/clipboard-32.png" />
+            <esri:PictureMarkerSymbol x:Key="GlobePictureMarkerSymbol" OffsetX="8" OffsetY="8" Source="/Resources/Images/clipboard-32.png" />
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Text="{Binding HasInternetConnection}" />
+            <Button Width="150" Height="30" Content="Проверить интернет"
+                    Command="{Binding CheckInternetConnectionCommand}" />
+            <Button Width="100" Height="30" Content="Тест"
+                    Click="TestButton_OnClick" />
+            <CheckBox Content="Карта" VerticalAlignment="Center" HorizontalAlignment="Center"
+                      Click="ShowMapCheckBox_OnClick"
+                      IsChecked="{Binding IsShowMap}" />
+
+            <Button Content="aaa" Width="100"
+                    Click="OpenTestViewButton_OnClick"
+                    Visibility="{Binding Path=DataContext.IsShowMap,
+                        ElementName=LayoutRoot, 
+                        Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </StackPanel>
+
+        <esri:Map Grid.Row="1" x:Name="MyMap" Background="#FFE3E3E3"
+                  IsLogoVisible="False"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <esri:Map.Layers>
+
+                <bing:TileLayer ID="MapLayer" x:Name="MapLayer"
+                                Visible="{Binding Path=DataContext.IsShowMap, ElementName=LayoutRoot}"
+                                Token="AuBdTBDeWwjN2GrEv8yhlye74nvY8YT58w5WUdBX5i59Y9eikQJLdEsKawTr4LlS"
+                                LayerStyle="Road"
+                                Culture="ru-ru" />
+
+                <esri:FeatureLayer ID="MyFeatureLayer"
+                                   Url="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/0" />
+
+                <esri:GraphicsLayer ID="Example Graphic">
+                    <esri:Graphic Symbol="{StaticResource RedMarkerSymbol}">
+                        <esri:Graphic.Geometry>
+                            <esri:MapPoint X="-10000000" Y="5000000">
+                                <esri:MapPoint.SpatialReference>
+                                    <esri:SpatialReference WKID="102100" />
+                                </esri:MapPoint.SpatialReference>
+                            </esri:MapPoint>
+                        </esri:Graphic.Geometry>
+                    </esri:Graphic>
+                </esri:GraphicsLayer>
+
+                <esri:GraphicsLayer ID="TestLayer" x:Name="TestLayer">
+                    <esri:Graphic Symbol="{StaticResource BlueMarkerSymbol}">
+                        <esri:Graphic.Geometry>
+                            <esri:MapPoint X="20000" Y="30000"/>
+                        </esri:Graphic.Geometry>
+                    </esri:Graphic>                    
+                </esri:GraphicsLayer>
+
+            </esri:Map.Layers>
+        </esri:Map>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGisWpfTest", "ArcGisWpfTest\ArcGisWpfTest.csproj", "{F64B5485-5865-4C16-B86F-23F0DA60ACED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGisMapEditor", "ArcGisMapEditor\ArcGisMapEditor.csproj", "{1092E040-0718-4833-AF8B-BE556C1B82B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F64B5485-5865-4C16-B86F-23F0DA60ACED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F64B5485-5865-4C16-B86F-23F0DA60ACED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F64B5485-5865-4C16-B86F-23F0DA60ACED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F64B5485-5865-4C16-B86F-23F0DA60ACED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1092E040-0718-4833-AF8B-BE556C1B82B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1092E040-0718-4833-AF8B-BE556C1B82B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1092E040-0718-4833-AF8B-BE556C1B82B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1092E040-0718-4833-AF8B-BE556C1B82B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

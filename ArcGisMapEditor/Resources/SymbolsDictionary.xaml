@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:symbology="http://schemas.esri.com/arcgis/runtime/2013">
+
+    <symbology:SimpleMarkerSymbol x:Key="GreenMarkerSymbol" Color="Green" Size="12" Style="Triangle" />
+    <symbology:SimpleMarkerSymbol x:Key="RedMarkerSymbol" Color="Red" Size="12" Style="Circle" />
+    <symbology:SimpleMarkerSymbol x:Key="BlueMarkerSymbol" Color="Blue" Size="12" Style="Square" />
+
+</ResourceDictionary>
