@@ -315,6 +315,7 @@ namespace ArcGisMapEditor.ViewModel
             MapMouseMove(this, args);
 
             var mapPoint = args.MapPoint;
+            if (mapPoint == null) return;
             CurrentCoord = new Coord(mapPoint.X, mapPoint.Y);
         }
 

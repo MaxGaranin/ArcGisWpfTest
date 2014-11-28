@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using ESRI.ArcGIS.Client;
@@ -77,7 +78,7 @@ namespace ArcGisWpfTest.View
             map.Layers.Add(testLayer);
 
             testLayer.ClearGraphics();
-            testLayer.Graphics.AddRange(_testGraphics);            
+            testLayer.Graphics.ToList().AddRange(_testGraphics);            
         }
 
         private Symbol GetRandomSymbol()

@@ -9,11 +9,9 @@ namespace ArcGisMapEditor.ViewModel.Managers.Operations
 {
     public class SelectRegionOperation : Operation
     {
-        private static readonly SpatialReference Wgs84 = new SpatialReference(3857);
-
         private readonly MainViewModel _mainViewModel;
         private readonly GraphicsLayer _operationsLayer;
-        private Graphic _selectRegion;
+        private readonly Graphic _selectRegion;
         private MapPoint _initialPoint;
         private bool _isSelect;
         
@@ -32,7 +30,7 @@ namespace ArcGisMapEditor.ViewModel.Managers.Operations
 
         private Graphic CreateRegion()
         {
-            var mapPoint = new MapPoint(0, 0, Wgs84);
+            var mapPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
             return CreateRegion(mapPoint, mapPoint);
         }
 
