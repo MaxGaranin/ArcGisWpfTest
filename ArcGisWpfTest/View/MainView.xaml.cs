@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using ESRI.ArcGIS.Client;
 using ESRI.ArcGIS.Client.Geometry;
 using ESRI.ArcGIS.Client.Symbols;
@@ -28,6 +29,27 @@ namespace ArcGisWpfTest.View
             {
                 Source = new Uri(SymbolsResourceDictionaryUri, UriKind.RelativeOrAbsolute)
             };
+
+            AddHackListeners();
+        }
+
+        private void AddHackListeners()
+        {
+            // Отключение приближения при движении мышкой с зажатым Shift
+            MyMap.MouseLeftButtonDown += (sender, args) =>
+            {
+                if (!Keyboard.IsKeyDown(Key.LeftShift)) return;
+
+                var e = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left)
+                {
+                    RoutedEvent = Mouse.MouseUpEvent
+                };
+
+                ((UIElement)sender).RaiseEvent(e);
+            };
+
+            // Отключение приближения при двойном клике
+            MyMap.MouseClick += (sender, args) => args.Handled = true;
         }
 
         private void ShowMapCheckBox_OnClick(object sender, RoutedEventArgs e)
@@ -45,10 +67,10 @@ namespace ArcGisWpfTest.View
         private void TestButton_OnClick(object sender, RoutedEventArgs e)
         {
             CreateLayer(MyMap, "Testlayer1", 0, 0);
-            CreateLayer(MyMap, "Testlayer2", 5000, 5000);
-            CreateLayer(MyMap, "Testlayer3", 6000, 6000);
-            CreateLayer(MyMap, "Testlayer4", -10000, -10000);
-            CreateLayer(MyMap, "Testlayer5", -20000, -20000);
+//            CreateLayer(MyMap, "Testlayer2", 5000, 5000);
+//            CreateLayer(MyMap, "Testlayer3", 6000, 6000);
+//            CreateLayer(MyMap, "Testlayer4", -10000, -10000);
+//            CreateLayer(MyMap, "Testlayer5", -20000, -20000);
         }
 
         private void CreateLayer(Map map, string layerID, int i0, int j0)
@@ -62,8 +84,8 @@ namespace ArcGisWpfTest.View
                     var graphic = new Graphic { Symbol = GetRandomSymbol() };
 
                     // Красная анимация
-                    // var graphic = new Graphic { Symbol = new SimpleMarkerSymbol() };
-                    // graphic.Symbol.ControlTemplate = ((MarkerSymbol)_resources["ProblemsMarkerSymbol"]).ControlTemplate;
+//                     var graphic = new Graphic { Symbol = new SimpleMarkerSymbol() };
+//                     graphic.Symbol.ControlTemplate = ((MarkerSymbol)_resources["ProblemsMarkerSymbol"]).ControlTemplate;
 
                     graphic.Geometry = new MapPoint(
                         i0 + i * 10000 * _random.Next(-50, 50), 
@@ -75,10 +97,9 @@ namespace ArcGisWpfTest.View
             }
 
             var testLayer = new GraphicsLayer { ID = layerID };
-            map.Layers.Add(testLayer);
+            testLayer.Graphics = new GraphicCollection(_testGraphics);            
 
-            testLayer.ClearGraphics();
-            testLayer.Graphics.ToList().AddRange(_testGraphics);            
+            map.Layers.Add(testLayer);
         }
 
         private Symbol GetRandomSymbol()
