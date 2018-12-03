@@ -2,8 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
-        xmlns:bing="clr-namespace:ESRI.ArcGIS.Client.Bing;assembly=ESRI.ArcGIS.Client.Bing"
-        Title="MainWindow" Height="600" Width="900"
+        Title="Главная форма" Height="600" Width="900"
         DataContext="{Binding Path=Main, Source={StaticResource Locator}}">
 
     <Grid x:Name="LayoutRoot">
@@ -30,15 +29,8 @@
                     Command="{Binding CheckInternetConnectionCommand}" />
             <Button Width="100" Height="30" Content="Тест"
                     Click="TestButton_OnClick" />
-            <CheckBox Content="Карта" VerticalAlignment="Center" HorizontalAlignment="Center"
-                      Click="ShowMapCheckBox_OnClick"
-                      IsChecked="{Binding IsShowMap}" />
-
-            <Button Content="aaa" Width="100"
-                    Click="OpenTestViewButton_OnClick"
-                    Visibility="{Binding Path=DataContext.IsShowMap,
-                        ElementName=LayoutRoot, 
-                        Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Button Content="Карта" Width="100"
+                    Click="OpenTestViewButton_OnClick"/>
         </StackPanel>
 
         <esri:Map Grid.Row="1" x:Name="MyMap" Background="#FFE3E3E3"
@@ -46,14 +38,9 @@
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <esri:Map.Layers>
 
-                <bing:TileLayer ID="MapLayer" x:Name="MapLayer"
-                                Visible="{Binding Path=DataContext.IsShowMap, ElementName=LayoutRoot}"
-                                Token="AuBdTBDeWwjN2GrEv8yhlye74nvY8YT58w5WUdBX5i59Y9eikQJLdEsKawTr4LlS"
-                                LayerStyle="Road"
-                                Culture="ru-ru" />
-
-                <esri:FeatureLayer ID="MyFeatureLayer"
-                                   Url="http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/0" />
+                <esri:ArcGISTiledMapServiceLayer 
+                    ID="StreetMapLayer" 
+                    Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>
 
                 <esri:GraphicsLayer ID="Example Graphic">
                     <esri:Graphic Symbol="{StaticResource RedMarkerSymbol}">

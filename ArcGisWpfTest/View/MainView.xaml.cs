@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using ESRI.ArcGIS.Client;
 using ESRI.ArcGIS.Client.Geometry;
@@ -45,18 +43,11 @@ namespace ArcGisWpfTest.View
                     RoutedEvent = Mouse.MouseUpEvent
                 };
 
-                ((UIElement)sender).RaiseEvent(e);
+                ((UIElement) sender).RaiseEvent(e);
             };
 
             // Отключение приближения при двойном клике
             MyMap.MouseClick += (sender, args) => args.Handled = true;
-        }
-
-        private void ShowMapCheckBox_OnClick(object sender, RoutedEventArgs e)
-        {
-            var checkBox = (CheckBox) sender;
-
-            MapLayer.Visible = checkBox.IsChecked.Value;
         }
 
         private void Zoom()
@@ -81,23 +72,22 @@ namespace ArcGisWpfTest.View
             {
                 for (int j = 0; j < 20; j++)
                 {
-                    var graphic = new Graphic { Symbol = GetRandomSymbol() };
+                    var graphic = new Graphic {Symbol = GetRandomSymbol()};
 
                     // Красная анимация
 //                     var graphic = new Graphic { Symbol = new SimpleMarkerSymbol() };
 //                     graphic.Symbol.ControlTemplate = ((MarkerSymbol)_resources["ProblemsMarkerSymbol"]).ControlTemplate;
 
                     graphic.Geometry = new MapPoint(
-                        i0 + i * 10000 * _random.Next(-50, 50), 
+                        i0 + i * 10000 * _random.Next(-50, 50),
                         j0 + j * 20000 * _random.Next(-50, 50));
 
                     _testGraphics.Add(graphic);
-
                 }
             }
 
-            var testLayer = new GraphicsLayer { ID = layerID };
-            testLayer.Graphics = new GraphicCollection(_testGraphics);            
+            var testLayer = new GraphicsLayer {ID = layerID};
+            testLayer.Graphics = new GraphicCollection(_testGraphics);
 
             map.Layers.Add(testLayer);
         }
@@ -119,6 +109,7 @@ namespace ArcGisWpfTest.View
                     resourceName = "BlueMarkerSymbol";
                     break;
             }
+
             return (SimpleMarkerSymbol) _resources[resourceName];
         }
 

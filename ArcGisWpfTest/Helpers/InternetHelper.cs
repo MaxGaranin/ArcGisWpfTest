@@ -1,29 +1,37 @@
 ﻿using System;
-using System.IO;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ArcGisWpfTest.Helpers
 {
     public class InternetHelper
     {
-        public static bool CheckForInternetConnectionHttp()
+        /// <summary>
+        /// Почему то этот метод не всегда работает
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckForInternetConnection()
         {
             try
             {
-                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create("http://www.google.com");
-                req.Timeout = 1500;
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                return true;
+                var request = (HttpWebRequest) WebRequest.Create("http://mail.ru");
+                request.Timeout = 5000;
+                request.Credentials = CredentialCache.DefaultNetworkCredentials;
+
+                var response = (HttpWebResponse) request.GetResponse();
+
+                return response.StatusCode == HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
         }
 
-        public static bool CheckForInternetConnection()
+        /// <summary>
+        /// Этот метод хорошо работает
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckForInternetConnection2()
         {
             try
             {
@@ -49,5 +57,4 @@ namespace ArcGisWpfTest.Helpers
             }
         }
     }
-
 }

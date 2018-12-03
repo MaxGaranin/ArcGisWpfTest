@@ -1,5 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ArcGisWpfTest.Helpers;
@@ -49,27 +51,8 @@ namespace ArcGisWpfTest.ViewModel
                 if (Equals(value, _hasInternetConnection)) return;
                 _hasInternetConnection = value;
                 RaisePropertyChanged("HasInternetConnection");
-
-                IsShowMap = value;
             }
         } 
-        #endregion
-
-        #region IsShowMap
-
-        private bool _isShowMap;
-
-        public bool IsShowMap
-        {
-            get { return _isShowMap; }
-            set
-            {
-                if (Equals(value, _isShowMap)) return;
-                _isShowMap = value;
-                RaisePropertyChanged("IsShowMap");
-            }
-        }
-        
         #endregion
 
         #region TestGraphics
@@ -87,8 +70,7 @@ namespace ArcGisWpfTest.ViewModel
             }
         } 
         #endregion
-        
-
+      
         // Commands
 
         #region CheckInternetConnection
@@ -106,7 +88,19 @@ namespace ArcGisWpfTest.ViewModel
 
         private void CheckInternetConnection()
         {
-            HasInternetConnection = InternetHelper.CheckForInternetConnectionHttp();
+            Task.Factory
+                .StartNew(() =>
+                {
+                    HasInternetConnection = InternetHelper.CheckForInternetConnection2();
+                })
+                .ContinueWith(t =>
+                {
+                    if (t.Exception != null)
+                    {
+                        Debug.WriteLine("CheckInternet exception: {0}", (object) t.Exception.ToString());
+                        HasInternetConnection = false;
+                    }
+                });
         }
 
         #endregion

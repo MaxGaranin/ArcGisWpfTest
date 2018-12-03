@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Windows;
 using ArcGisWpfTest.View;
 using ArcGisWpfTest.ViewModel;
@@ -19,7 +14,7 @@ namespace ArcGisWpfTest
             var viewModel = new MainViewModel();
             var view = new MainView();
             view.DataContext = viewModel;
-            view.Show();            
+            view.Show();
         }
 
         /// <summary>
@@ -28,7 +23,7 @@ namespace ArcGisWpfTest
         private static void SetupProxy()
         {
             var webProxy = WebRequest.GetSystemWebProxy();
-            webProxy.Credentials = new NetworkCredential("Garanin_MS", ",tkrf");
+            webProxy.Credentials = new NetworkCredential(@"rosneft\Garanin_MS", "RevoL101");
             WebRequest.DefaultWebProxy = webProxy;
         }
     }
